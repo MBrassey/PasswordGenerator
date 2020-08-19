@@ -1,4 +1,4 @@
-// Assignment code here
+// Set newPassword's Preferences
 
 
 // Get references to the #generate element
@@ -15,3 +15,20 @@ function writePassword() {
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
+
+
+// Randomize the string using Math.random
+function generatePassword(length = 12) {
+  var uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  var lowercase = 'abcdefghijklmnopqrstuvwxyz';
+  var numbers = '0123456789';
+  var symbols = '!"#$%&\'()*+,-./:;<=>?@^[\\]^_`{|}~';
+  var all = uppercase + lowercase + numbers + symbols;
+  var password = '';
+  for (var index = 0; index < length; index++) {
+      var character = Math.floor(Math.random() * all.length);
+      password += all.substring(character, character + 1);
+  }
+  console.log(password);
+  return password;
+}
