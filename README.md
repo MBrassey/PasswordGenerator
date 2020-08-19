@@ -1,2 +1,2 @@
-# PasswordGernerator
+# PasswordGenerator
 Strong Password Generator
