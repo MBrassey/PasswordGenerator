@@ -73,18 +73,41 @@ function writePassword() {
 
 // Randomize The String Using Math.random
 function generatePassword(length = preferencesObj.length) {
-  var uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  var lowercase = "abcdefghijklmnopqrstuvwxyz";
-  var numbers = "0123456789";
-  var symbols = "!\"#$%&'()*+,-./:;<=>?@^[\\]^_`{|}~";
-  var none = "";
-  var all = uppercase + lowercase + numbers + symbols;
+
+  // Define Char Types
+  if (preferencesObj.caseL) {
+      var lowercase = "abcdefghijklmnopqrstuvwxyz";
+  } else {
+      var lowercase = "";
+  }
+  if (preferencesObj.caseU) {
+      var uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  } else {
+      var uppercase = "";
+  }
+  if (preferencesObj.number) {
+      var numbers = "0123456789";
+  } else {
+      var numbers = "";
+  }
+  if (preferencesObj.special) {
+      var special = "!\"#$%&'()*+,-./:;<=>?@^[\\]^_`{|}~";
+  } else {
+      var special = "";
+  }
+
+  // Define Char Type Combination
+  var all = uppercase + lowercase + numbers + special;
   var password = "";
+
+  // Process The Password
   for (var index = 0; index < length; index++) {
       var character = Math.floor(Math.random() * all.length);
       password += all.substring(character, character + 1);
   }
   console.log("Password: " + password);
+
+  // Return The Final Password!
   return password;
 }
 
