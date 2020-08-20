@@ -11,6 +11,7 @@ var preferencesObj = {
 
 // Set Char Type Preferences
 function userPreferences() {
+  console.log("Welcome, Gathering User Preferences...");
   var passwordLength = "";
   var passwordCaseL = "";
   var passwordCaseU = "";
@@ -20,26 +21,24 @@ function userPreferences() {
   // Validate Length Input
   while (passwordLength === "" || passwordLength === null) {
       var passwordLength = prompt("How long should the password be?");
-      console.log(passwordLength);
-      if (passwordLength >= 8 && passwordLength <= 128) { // Ensure length is within range
+      if (passwordLength >= 8 && passwordLength <= 128) {
+          // Ensure length is within range
           preferencesObj.length = passwordLength;
-          console.log(preferencesObj.length);
+          console.log(": Password Length: " + preferencesObj.length);
+          // Collect Case, Number & Special Character Preferences
+          var passwordCaseL = confirm("Include Lowercase Letters? [Ok] Yes, [Cancel] No");
+          console.log(": Include Lowercase Letters: " + passwordCaseL);
+          var passwordCaseU = confirm("Include Uppercase Letters? [Ok] Yes, [Cancel] No");
+          console.log(": Include Upercase Letters: " + passwordCaseU);
+          var passwordNumber = confirm("Include Numbers? [Ok] Yes, [Cancel] No");
+          console.log(": Include Numbers: " + passwordNumber);
+          var passwordSpecial = confirm("Include Special Characters? [Ok] Yes, [Cancel] No");
+          console.log(": Include Special Characters: " + passwordSpecial);
           return preferencesObj.length;
       } else {
           window.alert("Enter a length between 8 - 128!");
       }
   }
-
-  // Collect Case, Number & Special Character Preferences
-var passwordCaseL = confirm("Include Lowercase Letters? [Ok] Yes, [Cancel] No");
-console.log(": Include Lowercase Letters: " + passwordCaseL);
-var passwordCaseU = confirm("Include Uppercase Letters? [Ok] Yes, [Cancel] No");
-console.log(": Include Upercase Letters: " + passwordCaseU);
-var passwordNumber= confirm("Include Numbers? [Ok] Yes, [Cancel] No");
-console.log(": Include Numbers: " + passwordNumber);
-var passwordSpecial = confirm("Include Special Characters? [Ok] Yes, [Cancel] No");
-console.log(": Include Special Characters: " + passwordSpecial);
-
 }
 
 // Get references to the #generate element
@@ -66,7 +65,7 @@ function generatePassword(length = preferencesObj.length) {
       var character = Math.floor(Math.random() * all.length);
       password += all.substring(character, character + 1);
   }
-  console.log(password);
+  console.log("Password: " + password);
   return password;
 }
 
