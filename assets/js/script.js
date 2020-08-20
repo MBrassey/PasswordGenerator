@@ -17,34 +17,52 @@ function userPreferences() {
   var passwordCaseU = "";
   var passwordNumber = "";
   var passwordSpecial = "";
+  var chosen = "";
 
   // Validate Length Input
-  while (passwordLength === "" || passwordLength === null) {
+  while (passwordLength === "") {
       var passwordLength = prompt("How long should the password be?");
+
+      // Ensure Length Is Within Range
       if (passwordLength >= 8 && passwordLength <= 128) {
-          // Ensure length is within range
-          preferencesObj.length = passwordLength;
           console.log(": Password Length: " + preferencesObj.length);
+
           // Collect Case, Number & Special Character Preferences
-          var passwordCaseL = confirm("Include Lowercase Letters? [Ok] Yes, [Cancel] No");
-          console.log(": Include Lowercase Letters: " + passwordCaseL);
-          var passwordCaseU = confirm("Include Uppercase Letters? [Ok] Yes, [Cancel] No");
-          console.log(": Include Upercase Letters: " + passwordCaseU);
-          var passwordNumber = confirm("Include Numbers? [Ok] Yes, [Cancel] No");
-          console.log(": Include Numbers: " + passwordNumber);
-          var passwordSpecial = confirm("Include Special Characters? [Ok] Yes, [Cancel] No");
-          console.log(": Include Special Characters: " + passwordSpecial);
-          return preferencesObj.length;
+          while (chosen === "") {
+              var passwordCaseL = confirm("Include Lowercase Letters? [Ok] Yes, [Cancel] No");
+              console.log(": Include Lowercase Letters: " + passwordCaseL);
+              var passwordCaseU = confirm("Include Uppercase Letters? [Ok] Yes, [Cancel] No");
+              console.log(": Include Upercase Letters: " + passwordCaseU);
+              var passwordNumber = confirm("Include Numbers? [Ok] Yes, [Cancel] No");
+              console.log(": Include Numbers: " + passwordNumber);
+              var passwordSpecial = confirm("Include Special Characters? [Ok] Yes, [Cancel] No");
+              console.log(": Include Special Characters: " + passwordSpecial);
+              if (!passwordCaseL && !passwordCaseU && !passwordNumber && !passwordSpecial) {
+                  console.log("Warning: Please include at least one char type!");
+                  alert("Please include at least one option.");
+                  var chosen = "";
+              } else {
+                  var chosen = 1;
+              }
+          }
+
+          // Assign & return Variables
+          preferencesObj.length = passwordLength;
+          preferencesObj.caseL = passwordCaseL;
+          preferencesObj.caseU = passwordCaseU;
+          preferencesObj.number = passwordNumber;
+          preferencesObj.special = passwordSpecial;
+          return [preferencesObj.length, preferencesObj.caseL, preferencesObj.caseU, preferencesObj.number, preferencesObj.special];
       } else {
           window.alert("Enter a length between 8 - 128!");
       }
   }
 }
 
-// Get references to the #generate element
+// Get References To the #generate Element
 var generateBtn = document.querySelector("#generate");
 
-// Write password to the #password input
+// Write Password To The #password Input
 function writePassword() {
   userPreferences();
   var password = generatePassword();
@@ -53,12 +71,13 @@ function writePassword() {
   passwordText.value = password;
 }
 
-// Randomize the string using Math.random
+// Randomize The String Using Math.random
 function generatePassword(length = preferencesObj.length) {
   var uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   var lowercase = "abcdefghijklmnopqrstuvwxyz";
   var numbers = "0123456789";
   var symbols = "!\"#$%&'()*+,-./:;<=>?@^[\\]^_`{|}~";
+  var none = "";
   var all = uppercase + lowercase + numbers + symbols;
   var password = "";
   for (var index = 0; index < length; index++) {
@@ -69,5 +88,5 @@ function generatePassword(length = preferencesObj.length) {
   return password;
 }
 
-// Add event listener to generate button
+// Add Event Listener To Generate Button
 generateBtn.addEventListener("click", writePassword);
