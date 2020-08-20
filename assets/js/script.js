@@ -11,7 +11,7 @@ var preferencesObj = {
 
 // Set Char Type Preferences
 function userPreferences() {
-  console.log("Welcome, Gathering User Preferences...");
+  console.log("[ Welcome, Gathering User Preferences... ]");
   var passwordLength = "";
   var passwordCaseL = "";
   var passwordCaseU = "";
@@ -24,8 +24,8 @@ function userPreferences() {
       var passwordLength = prompt("How long should the password be?");
 
       // Ensure Length Is Within Range
-      if (passwordLength >= 8 && passwordLength <= 128) {
-          console.log(": Password Length: " + preferencesObj.length);
+      if (!isNaN(passwordLength) && passwordLength >= 8 && passwordLength <= 128) {
+          console.log(": Password Length: " + passwordLength);
 
           // Collect Case, Number & Special Character Preferences
           while (chosen === "") {
@@ -54,7 +54,9 @@ function userPreferences() {
           preferencesObj.special = passwordSpecial;
           return [preferencesObj.length, preferencesObj.caseL, preferencesObj.caseU, preferencesObj.number, preferencesObj.special];
       } else {
-          window.alert("Enter a length between 8 - 128!");
+          var passwordLength = "";
+          console.log("Warning: Enter a numeric length between 8 - 128!");
+          window.alert("Enter a numeric length between 8 - 128!");
       }
   }
 }
