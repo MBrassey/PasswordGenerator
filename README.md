@@ -1,6 +1,6 @@
 # Password Generator
 
-> Configurable strong password generator written in pure JS.
+> Configurable strong password generator written in pure JS/HTML/CSS.
 
 - [x] [Initial Application](https://github.com/MBrassey/PasswordGenerator/issues/1)
 - [x] [Prompt for password length](https://github.com/MBrassey/PasswordGenerator/issues/2)
